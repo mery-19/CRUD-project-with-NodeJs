@@ -12,6 +12,13 @@ const validate = [
     })
 ]
 
+const validateSignUp = [
+    body('email').isEmail().isLength({min:5, max:255}),
+    body('password').isLength({min:5})
+]
+
 
 
 module.exports.validateSignin = validate;
+module.exports.validateSignUp = validateSignUp;
+
