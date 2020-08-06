@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="signin">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 col-md-6">
+                <img class="imgsignin img-fluid" src="/assets/images/img-01.png" alt="user image">
+            </div>
+            <div class="col-12 col-md-6">
+                <h4 class="text-muted font-weight-bold text-center m-3 mb-4">Create Account</h4>
+                <form method="POST" method="/signin">
+                    <div class="form-group">
+                        <p class="text-danger">{{user.errEmail}}</p>
+                        <input type="email" class="form-control" name="email" placeholder="Email" value="{{user.email}}">
+                    </div>
+                    <div class="form-group">
+                        <p class="text-danger">{{user.errName}}</p>
+                        <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{user.name}}">
+                    </div>
+                    <div class="form-group">
+                         <p class="text-danger">{{user.errPassword}}</p>
+                        <input type="password" class="form-control" name="password" placeholder="Password" value="{{user.password}}">
+                    </div>
+                    <div class="form-group">
+                        <p class="text-danger">{{user.errRepassword}}</p>
+                        <input type="password" class="form-control" name="repassword" placeholder="Retype Password" value="{{user.repassword}}">
+                    </div>
+                    <div class="form-group">
+                        
+                        <input type="submit" class="btn submit" name="submit" value="Sign In">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
