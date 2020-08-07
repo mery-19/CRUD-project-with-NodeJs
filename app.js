@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const session = require('express-session');
+const fileStrore = require('session-file-store')(session);
 // set https server
 const https = require('https');
 const fs = require('fs');
@@ -17,6 +20,7 @@ mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true },()=>{
 });
 
 // routers
+const homeRouter = require('./routes/home');
 const signRouter = require('./routes/sign');
 const userRouter = require('./routes/users');
 
@@ -29,6 +33,15 @@ app.all('*', (req, res, next) => {
     res.redirect(307, 'https://' + req.hostname + ':' + '3443' + req.url);
   }
 });
+
+app.use(session({
+  name:'session_id',
+  secret:'12345-67890-09876-54321',
+  saveUninitialized: false,
+  resave:false,
+  store: new fileStrore()
+
+}));
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({
@@ -46,7 +59,7 @@ app.engine('hbs',exphbs({extname: 'hbs',defaultLayout: 'main', layoutsDir: __dir
 }}));
 app.set('view engine', 'hbs');
 
-
+app.use('/',homeRouter);
 app.use('/',signRouter);
 app.use('/',userRouter);
 

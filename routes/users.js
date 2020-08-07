@@ -2,7 +2,7 @@ const express = require('express');
 const { route } = require('./sign');
 const router = express.Router();
 const User = require('../models/user');
-var moment = require('moment');
+const moment = require('moment');
 
 router.get('/users',(req,res)=>{
     User.find({},(err,users)=>{

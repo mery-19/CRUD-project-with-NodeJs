@@ -1,24 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+        integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
     <link rel="stylesheet" href="/style.css">
     <title>Events of Meryam</title>
-    
-
-
-<script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-});
-</script>
 </head>
+
 <body>
-    {{{body}}}
+    <!-- Nav tabs -->
+    <div class="container">
+
+        <div class="row justify-content-arround my-4 ">
+            <div class="col-10">
+                <ul class="nav nav-tabs" id="navId">
+
+                    <li class="nav-item">
+                        <a href="/home" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/events" class="nav-link">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/users" class="nav-link">Users</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-2 align-center">
+            <ul class="nav nav-tabs">
+                {{#if req.session.token}}
+                <li class="nav-item ">
+                    <a href="/signup" class="nav-link">{{req.user.name}}</a>
+                </li>
+                {{else}}
+                <li class="nav-item ">
+                    <a href="/signup" class="nav-link">Sign up =></a>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+        </div>
+
+        
+
+
+        {{{body}}}
+    </div>
+
+
+
 </body>
+
 </html>

@@ -4,11 +4,13 @@ const User = require('../models/user');
 const {validateSignin, validateSignUp} = require('../models/validate');
 const {validationResult} = require('express-validator');
 const bcrypt= require('bcrypt');
+const jwt = require('jsonwebtoken');
+const {loginAuth}=require('./auth');
 
 router.use(express.json());
 
 /************ sign in start *****************/ 
-router.get('/signin',(req,res)=>{
+router.get('/signin',loginAuth,(req,res)=>{
     res.render('sign/signin');
 });
 
@@ -41,7 +43,7 @@ router.post('/signin',validateSignin,(req,res)=>{
                         {
                             res.status(400).send(err);
                         }else{
-                            res.status(200).send(user1);
+                            res.redirect('/signup')
                         }
                     })
                 }
@@ -52,41 +54,38 @@ router.post('/signin',validateSignin,(req,res)=>{
 /************ sign in End *****************/ 
 
 /************ sign up start *****************/ 
-router.get('/signup',(req,res)=>{
+router.get('/signup',loginAuth,(req,res)=>{
     res.render('sign/signup');
 });
 
 router.post('/signup',validateSignUp,(req,res)=>{
+    console.log(req.session);
+    User.findOne({email:req.body.email},async (err,user)=>{
+        if(!err){
+            if(user){
+                const compare = await bcrypt.compare(req.body.password,user.password);
+                if(compare)
+                {
+                    // sign jwt
+                    const token = jwt.sign({_id: user._id},process.env.SECRET_KEY);
+                    req.session.token = token;
+                    console.log(req.session)
+                    res.redirect('/home');
 
-    const errors = validationResult(req).errors;
-    if(errors.length)
-    {
-        handleError(errors,req.body);
-        res.render('sign/signup',{
-            user: req.body
-        })
-    }else{
-        User.findOne({email:req.body.email},async (err,user)=>{
-            if(!err){
-                if(user){
-                    const compare = await bcrypt.compare(req.body.password,user.password);
-                    if(compare)
-                    {
-                        res.status(200).send("log in success");
-                    }else {
-                        res.status(400).send("pasword or email incorrect");
-                    }
                 }else {
-                    console.log("Please create account First.")
                     res.render('sign/signup',{
-                        error: "Please create account First."
+                        error:"*Password or Email Incorrect."
                     })
                 }
             }else {
-                res.status(400).send(err);
+                res.render('sign/signup',{
+                    error:"*Password or Email Incorrect."
+                })
             }
-        })
-    }
+        }else {
+            res.status(400).send(err);
+        }
+    })
 });
 /************ sign up End *****************/ 
 
