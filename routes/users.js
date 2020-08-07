@@ -9,7 +9,7 @@ router.get('/users',(req,res)=>{
         for(i in users)
         {
             date = new Date(users[i].createdAt);
-            d = moment(date).format("DD-MM-YYYY hh:mm:ss") ;
+            d = moment(date).format("DD-MM-YYYY  hh:mm") ;
             users[i].date = d;
         }
         res.render('users/show',{users});
