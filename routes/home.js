@@ -3,14 +3,9 @@ const homeRouter = express.Router();
 const { auth } = require('./auth');
 const User = require('../models/user')
 
-homeRouter.get('/home',auth,(req,res)=>{
-    const id_user = req.user._id;
-    User.findById(id_user,(err,user)=>{
-        req.user = user;
-        console.log(user)
-    })
+homeRouter.get('/home',(req,res)=>{
     res.render('layouts/home',{
-        active: true,
+        activeHome: true,
         req: req
     });
 })

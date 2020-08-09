@@ -23,6 +23,8 @@ mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true },()=>{
 const homeRouter = require('./routes/home');
 const signRouter = require('./routes/sign');
 const userRouter = require('./routes/users');
+const errorRouter = require('./routes/error');
+const dashRouter = require('./routes/dashboard');
 
 // Secure traffic only
 app.all('*', (req, res, next) => {
@@ -62,7 +64,8 @@ app.set('view engine', 'hbs');
 app.use('/',homeRouter);
 app.use('/',signRouter);
 app.use('/',userRouter);
-
+app.use('/',errorRouter);
+app.use('/',dashRouter);
 
 app.listen(3000,()=>{
     console.log("application running on: http://localhost:3000");

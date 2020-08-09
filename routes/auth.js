@@ -1,41 +1,42 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 function auth(req,res,next)
 {
     const token = req.session.token;
-    console.log(req.session)
-    console.log(token);
-    if(!token) res.status(400).send("you are not authorize.")
+    if(!token) res.status(304).redirect('/error');
 
     try{
         const verify = jwt.verify(token,process.env.SECRET_KEY);
         req.user = verify;
-        console.log(req.user);
+        User.findById(verify._id,(err,user)=>{
+            if(!err){ 
+                req.user.name = user.name;
+                req.session.user = user.name}
+
+        })
+        console.log(verify)
         next();
     }catch(err){
-        res.status(400).send("Invalid User.")
+        res.status(400).send(err)
     }
 }
 
 function loginAuth(req,res,next)
 {
-    console.log("enter")
     const token = req.session.token;
-    console.log(token)
     if(token)
     {
         try{
             const verify = jwt.verify(token,process.env.SECRET_KEY);
             req.user = verify;
             res.status(304).redirect('/dashboard');
-            // res.render('layouts/dashboard')
         }catch(err){
             res.status(400).send("Invalid User.")
         }
     }
     next();
 }
-
 
 module.exports.auth = auth;
 module.exports.loginAuth = loginAuth;

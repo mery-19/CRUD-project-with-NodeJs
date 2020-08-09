@@ -69,7 +69,7 @@ router.post('/signup',validateSignUp,(req,res)=>{
                     // sign jwt
                     const token = jwt.sign({_id: user._id},process.env.SECRET_KEY);
                     req.session.token = token;
-                    console.log(req.session)
+                    req.user = user;
                     res.redirect('/home');
 
                 }else {

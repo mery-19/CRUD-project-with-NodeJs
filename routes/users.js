@@ -3,8 +3,10 @@ const { route } = require('./sign');
 const router = express.Router();
 const User = require('../models/user');
 const moment = require('moment');
+const {auth} = require('./auth');
 
-router.get('/users',(req,res)=>{
+router.get('/users',auth,(req,res)=>{
+    
     User.find({},(err,users)=>{
         for(i in users)
         {
@@ -12,7 +14,10 @@ router.get('/users',(req,res)=>{
             d = moment(date).format("DD-MM-YYYY  hh:mm") ;
             users[i].date = d;
         }
-        res.render('users/show',{users});
+        res.render('users/show',{
+            users:users,
+            req:req,
+            activeUser:true});
     })
 });
 

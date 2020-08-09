@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://kit.fontawesome.com/371169d42f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/style.css">
     <title>Events of Meryam</title>
 </head>
@@ -22,13 +23,13 @@
                 <ul class="nav nav-tabs" id="navId">
 
                     <li class="nav-item">
-                        <a href="/home" class="nav-link active">Home</a>
+                        <a href="/home" class="nav-link {{#if activeHome}}active{{/if}}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/events" class="nav-link">Events</a>
+                        <a href="/events" class="nav-link {{#if activeEvent}}active{{/if}}">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/users" class="nav-link">Users</a>
+                        <a href="/users" class="nav-link {{#if activeUser}}active{{/if}}">Users</a>
                     </li>
                 </ul>
 
@@ -37,11 +38,11 @@
             <ul class="nav nav-tabs">
                 {{#if req.session.token}}
                 <li class="nav-item ">
-                    <a href="/signup" class="nav-link">{{req.user.name}}</a>
+                    <a href="/signup" class="nav-link {{#if activeDash}}active{{/if}}"><i class="fa fa-user">&nbsp;</i> {{req.session.user}}</a>
                 </li>
                 {{else}}
                 <li class="nav-item ">
-                    <a href="/signup" class="nav-link">Sign up =></a>
+                    <a href="/signup" class="nav-link {{#if activeDash}}active{{/if}}">Sign up =></a>
                 </li>
                 {{/if}}
             </ul>
