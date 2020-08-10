@@ -89,6 +89,21 @@ router.post('/signup',validateSignUp,(req,res)=>{
 });
 /************ sign up End *****************/ 
 
+/************ log out start *****************/ 
+router.get('/logout',(req,res)=>{
+    console.log(req.session)
+    if(req.session){
+        req.session.destroy();
+        res.clearCookie('session-id');
+        res.redirect('/');
+      }else{
+        var err = new Error('You are not logged in!');
+        err.status = 403;
+        next(err);
+      }
+});
+/************ log out End *****************/ 
+
 function handleError(errors,body){
     for(err in errors)
     {

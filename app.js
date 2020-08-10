@@ -25,6 +25,7 @@ const signRouter = require('./routes/sign');
 const userRouter = require('./routes/users');
 const errorRouter = require('./routes/error');
 const dashRouter = require('./routes/dashboard');
+const eventRouter = require('./routes/events');
 
 // Secure traffic only
 app.all('*', (req, res, next) => {
@@ -66,6 +67,7 @@ app.use('/',signRouter);
 app.use('/',userRouter);
 app.use('/',errorRouter);
 app.use('/',dashRouter);
+app.use('/',eventRouter);
 
 app.listen(3000,()=>{
     console.log("application running on: http://localhost:3000");
