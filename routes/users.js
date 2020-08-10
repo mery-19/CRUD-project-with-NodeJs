@@ -14,10 +14,11 @@ router.get('/users',auth,(req,res)=>{
             d = moment(date).format("DD-MM-YYYY  hh:mm") ;
             users[i].date = d;
         }
-        res.render('users/show',{
+        res.render('layouts/dashboard',{
             users:users,
             req:req,
-            activeUser:true});
+            // activeUser:true,
+            showUsers:true});
     })
 });
 

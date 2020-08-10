@@ -5,17 +5,20 @@ const User = require('../models/user');
 const moment = require('moment')
 
 route.get('/events',(req,res)=>{
-    console.log(req.session);
-    res.render('events/show');
+    Event.find({},(err,events)=>{
+        res.render('events/show',{
+            events:events,
+            activeEvents:true,
+            req:req
+        });
+    })
 });
 
 route.post('/create',(req,res)=>{
-    console.log(req.session);
-    Event.create(req.body, (err,user)=>{
+    Event.create(req.body, (err,event)=>{
         if(!err)
         {
-            console.log(user);
-            res.status(200).send(user);
+            res.redirect('/show')
         }else {
             res.status(400).send(err);
         }
@@ -24,9 +27,10 @@ route.post('/create',(req,res)=>{
 });
 
 route.get('/create',(req,res)=>{
-    console.log(req.body);
     res.render('layouts/dashboard',{
-        create:true
+        activeDash:true,
+        create:true,
+        req:req
     });
 });
 
@@ -42,7 +46,9 @@ route.get('/show',(req,res)=>{
         }
             res.render('layouts/dashboard',{
                 events:events,
-                showUser:true
+                activeDash:true,
+                showEvents:true,
+                req:req
             });
         }
     })

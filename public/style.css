@@ -28,7 +28,7 @@
 }
 
 .submit{
-    background-color: #254E70;
+    background-color: #37718E;
     color: white;
     font-weight: bold;
     width: 100%;
@@ -67,7 +67,7 @@ a:hover{
 }
 .table-title {
     padding-bottom: 15px;
-    background: #299be4;
+    background: #254E70;
     color: #fff;
     padding: 16px 30px;
     margin: -20px -25px 10px;
@@ -217,6 +217,6 @@ table.table .avatar {
 }
 
 .create{
-    background-color:#C33C54 ;
+    background-color:#37718E ;
     color: white;
 }
