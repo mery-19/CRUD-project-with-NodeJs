@@ -4,6 +4,7 @@ const User = require('../models/user');
 function auth(req,res,next)
 {
     const token = req.session.token;
+    console.log("the token", token)
     if(!token) res.status(304).redirect('/error');
 
     try{

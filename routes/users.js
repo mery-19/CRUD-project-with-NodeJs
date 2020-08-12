@@ -1,5 +1,4 @@
 const express = require('express');
-const { route } = require('./sign');
 const router = express.Router();
 const User = require('../models/user');
 const moment = require('moment');
@@ -17,12 +16,12 @@ router.get('/users',auth,(req,res)=>{
         res.render('layouts/dashboard',{
             users:users,
             req:req,
-            // activeUser:true,
+            activeDash:true,
             showUsers:true});
     })
 });
 
-router.get('/users/delete/:id',(req,res)=>{
+router.get('/users/delete/:id',auth,(req,res)=>{
     User.findByIdAndRemove({_id:req.params.id},(err,users)=>{
         if(!err)
         {
@@ -30,5 +29,6 @@ router.get('/users/delete/:id',(req,res)=>{
         }
     })
 });
+
 
 module.exports = router;

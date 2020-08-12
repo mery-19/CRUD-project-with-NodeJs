@@ -23,13 +23,10 @@
                 <ul class="nav nav-tabs" id="navId">
 
                     <li class="nav-item">
-                        <a href="/home" class="nav-link {{#if activeHome}}active{{/if}}">Home</a>
+                        <a href="/home" class="nav-link {{#if activeHome}}active{{/if}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/events" class="nav-link {{#if activeEvents}}active{{/if}}">Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/users" class="nav-link {{#if activeUser}}active{{/if}}">Users</a>
+                        <a href="/events" class="nav-link {{#if activeEvents}}active{{/if}}"><i class="fa fa-calendar" aria-hidden="true"></i>  Events</a>
                     </li>
                 </ul>
 
@@ -42,7 +39,7 @@
                 </li>
                 {{else}}
                 <li class="nav-item ">
-                    <a href="/signup" class="nav-link {{#if activeDash}}active{{/if}}">Sign up =></a>
+                    <a href="/signup" class="nav-link {{#if signin}}active{{/if}}"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Sign up</a>
                 </li>
                 {{/if}}
             </ul>

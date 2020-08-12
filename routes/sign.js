@@ -11,7 +11,9 @@ router.use(express.json());
 
 /************ sign in start *****************/ 
 router.get('/signin',loginAuth,(req,res)=>{
-    res.render('sign/signin');
+    res.render('sign/signin',{
+        signin:true
+    });
 });
 
 router.post('/signin',validateSignin,(req,res)=>{
@@ -55,7 +57,9 @@ router.post('/signin',validateSignin,(req,res)=>{
 
 /************ sign up start *****************/ 
 router.get('/signup',loginAuth,(req,res)=>{
-    res.render('sign/signup');
+    res.render('sign/signup',{
+        signin:true
+    });
 });
 
 router.post('/signup',validateSignUp,(req,res)=>{
@@ -69,8 +73,9 @@ router.post('/signup',validateSignUp,(req,res)=>{
                     // sign jwt
                     const token = jwt.sign({_id: user._id},process.env.SECRET_KEY);
                     req.session.token = token;
+                    req.session.user = user.name
                     req.user = user;
-                    res.redirect('/home');
+                    res.redirect('/dashboard');
 
                 }else {
                     res.render('sign/signup',{
